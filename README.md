@@ -215,6 +215,16 @@ curl -X POST http://localhost:8000/predict \
 ```
 
 ---
+### Explainability (Bonus)
+Implemented SHAP analysis to explain model decisions. Key findings: 
+- SpO₂ mean, HR maximum, and shock index are most important features
+- All top features are clinically validated deterioration markers
+- Waterfall plots provide per-prediction reasoning
+- Builds clinical trust through transparency
+
+**Visualizations:** 
+-  evaluation/shap_summary.png - Global feature importance
+-  evaluation/shap_waterfall.png - Individual prediction breakdown
 
 ## 📁 Project Structure
 
