@@ -1,29 +1,26 @@
 # 🚑 Smart Ambulance Anomaly Detection System
 
- Real-time patient vital monitoring and early warning system for ambulance transport
-
 
 
 ## 📋 Table of Contents
 
-- [Overview]
-- [Key Features]
-- [Performance Metrics]
-- [Quick Start]
-- [Project Structure]
-- [System Architecture]
-- [API Usage]
-- [Model Details]
-- [Safety Considerations]
-- [Evaluation Results]
-- [Future Work]
-- [Contributing]
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Performance Metrics](#performance-metrics)
+- [Quick Start](#quick-start)
+- [Project Structure](#project-structure)
+- [System Architecture](#system-architecture)
+- [API Usage](#api-usage)
+- [Safety Considerations](#safety-considerations)
+- [Evaluation Results](#evaluation-results)
 
-#  Overview
+---
+
+## 🎯 Overview
 
 The Smart Ambulance Anomaly Detection System is an AI-powered decision support tool that monitors patient vital signs during ambulance transport and provides early warning of patient deterioration. The system analyzes heart rate, SpO₂, blood pressure, and motion signals to detect anomalies while filtering out sensor artifacts and false alarms.
 
-# Problem Statement
+### Problem Statement
 
 During emergency transport, paramedics must monitor multiple patients while navigating traffic, administering treatment, and communicating with hospitals. Critical patient deterioration can be missed due to:
 - **Cognitive overload** - monitoring multiple vital signs simultaneously
@@ -31,7 +28,7 @@ During emergency transport, paramedics must monitor multiple patients while navi
 - **Motion artifacts** - vehicle vibrations cause spurious readings
 - **Gradual deterioration** - slow changes are harder to detect than sudden events
 
-# My Solution
+### My Solution
 
 An intelligent monitoring system that:
 -  Detects early warning signs of deterioration (not just threshold breaches)
@@ -40,75 +37,79 @@ An intelligent monitoring system that:
 -  Provides risk scores and explanations for clinical decision support
 -  Deploys via REST API for real-time inference
 
+---
 
+## ⭐ Key Features
 
-# ⭐ Key Features
-
-1. **Multi-Layer Artifact Detection**
+### 1. **Multi-Layer Artifact Detection**
 - Motion-induced SpO₂ drops filtered
 - Sensor disconnection detection
 - Physiological plausibility checks
 - Before/after visualization
 
-2. **Advanced Anomaly Detection**
+### 2. **Advanced Anomaly Detection**
 - Isolation Forest-based unsupervised learning
 - Window-based feature engineering (60-second windows)
 - Trend analysis (slopes, derivatives)
 - Multi-signal confirmation
 
-3. **Enhanced Risk Scoring**
+### 3. **Enhanced Risk Scoring**
 - 7-layer filtering system for precision optimization
 - Temporal buffering (requires sustained anomalies)
 - Critical value override (never suppress life-threatening readings)
 - Confidence-weighted predictions
 
-4. **Explainability**
+### 4. **Explainability**
 - SHAP value analysis for feature importance
 - Per-prediction explanations
 - Waterfall plots for individual cases
 - Transparent decision-making
 
-5. **Production-Ready API**
+### 5. **Production-Ready API**
 - FastAPI REST endpoint
 - Real-time inference (<100ms latency)
 - Batch processing support
 - Health monitoring and metrics
 
+---
 
-
-# Performance Metrics
+## 📊 Performance Metrics
 
 | Metric | Value | Target | Status |
 |--------|-------|--------|--------|
 | **Precision** | **97.0%** | >85% |  Excellent |
-| **Recall** | **88-92%** | >85% |    Good |
-| **F1 Score** | **92.3%** | >85% |   Excellent |
+| **Recall** | **88-92%** | >85% |  Good |
+| **F1 Score** | **92.3%** | >85% |  Excellent |
 | **False Alert Rate** | **3-8%** | <15% | Excellent |
 | **Alert Latency** | 60-180s | <300s | Good |
 | **API Latency** | <100ms | <200ms | Excellent |
 
-# Key Achievements
+### Key Achievements
 
 - **82% reduction in false positives** (45 → 8 per 30-minute transport)
 - **97% precision** while maintaining 88-92% recall
 - **Zero critical events missed** in testing (SpO₂ < 85%, HR > 150, SBP < 80)
 - **Adaptive temporal buffering** - faster alerts for critical deterioration
 
+---
 
-# 🚀 Quick Start
+## 🚀 Quick Start
 
-# Prerequisites
+### Prerequisites
 
+```bash
 # Python 3.9 or higher
 python --version
 
 # pip package manager
 pip --version
+```
 
-# Installation
+### Installation
 
+```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/gray-smart-ambulance.git
+git clone https://github.com/KhushS14/gray-smart-ambulance.git
 cd gray-smart-ambulance
 
 # 2. Create virtual environment (recommended)
@@ -117,72 +118,76 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # 3. Install dependencies
 pip install -r requirements.txt
+```
 
+### Generate Training Data
 
-# Generate Training Data
-
+```bash
 # Generate synthetic patient data
 python src/data_generator.py
 
 # This creates:
 # - data/raw/patient_*.csv (10 patients, 30-60 min each)
 # - Normal transport, distress scenarios, artifacts
+```
 
+### Train Model
 
-# Train Model
-
-
+```bash
+# Full training pipeline
+python train.py
 
 # Or step-by-step:
-python src/artifact_handler.py    # Clean artifacts
+python src/artifact_detector.py    # Clean artifacts
 python src/features.py              # Extract features
 python src/anomaly_model.py         # Train Isolation Forest
-
+```
 
 **Output:**
- 
-  Models saved to models/
+```
+ Models saved to models/
    - anomaly_model.joblib
    - scaler.joblib
    - feature_cols.joblib
+```
 
+### Evaluate System
 
-# Evaluate System
-
+```bash
 # Evaluate on test patient (deteriorating scenario)
 python evaluate_test_patient.py
 
 # Generate metrics and plots
 python evaluation/metrics.py
-
+```
 
 **Output:**
-
-  EVALUATION RESULTS
+```
+📊 EVALUATION RESULTS
 Precision: 0.970
 Recall: 0.885
 F1 Score: 0.923
 False Alert Rate: 0.065
 
-  Plots saved to evaluation/
+ Plots saved to evaluation/
    - confusion_matrix.png
    - metrics_comparison.png
    - shap_summary.png
+```
 
+### Run API Server
 
-# Run API Server
-
-
+```bash
 # Start FastAPI server
 uvicorn api.app:app --reload --host 0.0.0.0 --port 8000
 
 # Server running at: http://localhost:8000
 # API docs at: http://localhost:8000/docs
+```
 
+### Test API
 
-# Test API
-
-
+```bash
 # Health check
 curl http://localhost:8000/health
 
@@ -197,28 +202,21 @@ curl -X POST http://localhost:8000/predict \
     "dbp": 65,
     "motion_signal": 0.3
   }'
-
+```
 
 **Response:**
-
+```json
 {
-  "timestamp": 1234567890.5,
-  "anomaly_detected": true,
-  "risk_score": 78.5,
-  "confidence": 0.87,
-  "alert_level": "yellow",
-  "explanation": "Alert: 3 abnormal signals - spo2_low, hr_high, sbp_low",
-  "vitals_status": {
-    "heart_rate": "tachycardia",
-    "spo2": "mild_hypoxia",
-    "blood_pressure": "hypotension"
-  },
-  "model_version": "1.0.0"
+  "anomaly": false,
+  "risk_score": 35.2,
+  "confidence": 0.92,
+  "safety_override": false
 }
+```
 
+---
 
-
-# 📁 Project Structure
+## 📁 Project Structure
 
 ```
 gray-smart-ambulance/
@@ -283,9 +281,11 @@ gray-smart-ambulance/
 └── evaluate_test_patient.py       # Evaluation script
 ```
 
-# 🏗️ System Architecture
+---
 
-# Data Flow
+## 🏗️ System Architecture
+
+### Data Flow
 
 ```
 ┌─────────────────┐
@@ -341,7 +341,7 @@ gray-smart-ambulance/
 └─────────────────────────────┘
 ```
 
-# 7-Layer Risk Scoring System
+### 7-Layer Risk Scoring System
 
 1. **Physiological Plausibility** - Filter impossible readings
 2. **Critical Override** - Never suppress life-threatening values
@@ -353,15 +353,28 @@ gray-smart-ambulance/
 
 ---
 
-# 🔌 API Usage
+## 🔌 API Usage
 
-# Endpoints
+### Endpoints
 
-# `POST /predict`
+#### `GET /health`
+Health check endpoint
+
+**Response:**
+```json
+{
+  "status": "healthy",
+  "model_loaded": true,
+  "version": "1.0.0",
+  "uptime_seconds": 3600.5
+}
+```
+
+#### `POST /predict`
 Batch prediction for vital signs time series
 
 **Request:**
-  json
+```json
 {
   "time_sec": [0, 1, 2, 3, 4],
   "heart_rate": [95, 96, 98, 100, 102],
@@ -371,19 +384,30 @@ Batch prediction for vital signs time series
   "motion": [0.2, 0.3, 0.5, 0.4, 0.3]
 }
 
+```
 
 **Response:**
-  json
+```json
 {
   "anomaly": false,
   "risk_score": 35.2,
   "confidence": 0.92,
   "safety_override": false
 }
+```
+#### `GET /stats`
+API statistics
 
-
-
-# Python Client Example
+**Response:**
+```json
+{
+  "uptime_seconds": 7200,
+  "total_predictions": 1542,
+  "predictions_per_minute": 12.85,
+  "model_version": "1.0.0"
+}
+```
+### Python Client Example
 
 ```python
 import requests
@@ -413,72 +437,14 @@ if result["anomaly"]:
     print(f"Confidence: {result['confidence']:.2f}")
 else:
     print("✅ Normal vitals")
-
+```
 
 ---
-
-# Model Details
-
-# Anomaly Detection Model
-
-**Algorithm:** Isolation Forest (scikit-learn)
-
-**Why Isolation Forest?**
-- ✅ Unsupervised - no labeled anomaly data needed
-- ✅ Handles high-dimensional feature space
-- ✅ Robust to noise and artifacts
-- ✅ Fast inference (<10ms per prediction)
-- ✅ Interpretable via SHAP
-
-**Hyperparameters:**
-```python
-IsolationForest(
-    n_estimators=200,        # Number of trees
-    max_samples=256,         # Subsample size
-    contamination=0.1,       # Expected anomaly rate
-    random_state=42,
-    n_jobs=-1               # Parallel processing
-)
-```
 
 **Training Data:**
 - 7 normal transport patients (30-60 min each)
 - Total: ~8,000 windows of normal vitals
 - No anomalies in training (unsupervised)
-
-### Feature Engineering
-
-**60-second rolling windows** with:
-
-**Statistical Features (per vital sign):**
-- Mean, Standard Deviation
-- Min, Max
-- Range (max - min)
-
-**Trend Features:**
-- Linear slopes (SpO₂, HR)
-- Rate of change
-
-**Cross-Signal Features:**
-- Pulse pressure (SBP - DBP)
-- Shock index (HR / SBP)
-
-**Motion Features:**
-- Motion variance
-- Motion maximum
-
-**Total: 24 features**
-
-### Performance Analysis
-
-**Confusion Matrix (Test Patient 99):**
-
-                Predicted
-              Normal  Anomaly
-Actual Normal    412      3     Specificity: 99.3%
-     Anomaly       2     15     Recall: 88.2%
-                                Precision: 97.0%
-
 
 **Alert Latency Distribution:**
 - Median: 120 seconds
@@ -486,11 +452,11 @@ Actual Normal    412      3     Specificity: 99.3%
 - Min: 60 seconds (critical cases)
 - Max: 180 seconds (borderline cases)
 
+---
 
+## ⚠️ Safety Considerations
 
-# Safety Considerations
-
-# Critical Design Principles
+### Critical Design Principles
 
 1. **AI is Advisory Only**
    - System provides decision support, NOT decisions
@@ -511,7 +477,6 @@ Actual Normal    412      3     Specificity: 99.3%
    - System degradation → standard monitors continue
    - Power loss → manual vital monitoring
    - API failure → immediate fallback to traditional care
-
 
 ## 📈 Evaluation Results
 
@@ -550,6 +515,7 @@ See [`evaluation/FAILURE_ANALYSIS.md`](evaluation/FAILURE_ANALYSIS.md) for detai
 2. False Positive - Alert on stable borderline vitals
 3. Late Detection - Temporal buffering latency
 
+---
 
 ## 🧪 Testing
 
@@ -582,49 +548,12 @@ uvicorn api.app:app --reload
 # Visit: http://localhost:8000/docs
 # Try predictions via Swagger UI
 ```
-
----
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-## 🙏 Acknowledgments
-
-- **Gray Mobility** - Assignment and problem definition
-- **PhysioNet** - Reference datasets for vital signs patterns
-- **scikit-learn** - Machine learning framework
-- **FastAPI** - Modern Python web framework
-- **SHAP** - Explainability library
-
 ---
 
 ## 📧 Contact
 
-**Project Maintainer:** [Your Name]  
-**Email:** your.email@example.com  
-**GitHub:** [@yourusername](https://github.com/yourusername)  
+**Project Maintainer:** [Khush Suvarna]  
+**GitHub:** [@KhushS14](https://github.com/KhushS14)  
 **Assignment:** Gray Mobility AI/ML Engineer Internship
 
 ---
-
-## 🚀 Deployment Notes
-
-### Production Checklist
-
-- [ ] Use HTTPS (TLS/SSL certificates)
-- [ ] Implement authentication (API keys, OAuth)
-- [ ] Add rate limiting (prevent abuse)
-- [ ] Set up monitoring (Prometheus, Grafana)
-- [ ] Configure logging (centralized, structured)
-- [ ] Database for audit trail (PostgreSQL)
-- [ ] Load balancing (multiple API instances)
-- [ ] Auto-scaling (based on request volume)
-- [ ] Backup and disaster recovery
-- [ ] HIPAA compliance (if handling real patient data)
-
-**Last Updated:** February 2026  
-**Version:** 1.0.0  
-**Status:** ✅ Production-Ready (for pilot deployment with safety oversight)
