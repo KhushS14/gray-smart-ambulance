@@ -1,0 +1,2 @@
+precision,recall,false_alert_rate,f1_score,specificity,tp,fp,fn,tn,total_predictions,total_anomalies,latency_avg_latency,latency_median_latency,latency_max_latency,latency_min_latency,latency_num_episodes,latency_missed_episodes
+0.8266666629925926,0.999999994623656,0.23076922940373237,0.905108989149045,0.7692307646791079,186,39,0,130,355,186,0.0,0.0,0,0,5,0
