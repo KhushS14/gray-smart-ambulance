@@ -99,16 +99,13 @@ An intelligent monitoring system that:
 
 # Prerequisites
 
-
 # Python 3.9 or higher
 python --version
 
 # pip package manager
 pip --version
 
-
-### Installation
-
+# Installation
 
 # 1. Clone the repository
 git clone https://github.com/yourusername/gray-smart-ambulance.git
@@ -223,7 +220,7 @@ curl -X POST http://localhost:8000/predict \
 
 # 📁 Project Structure
 
-
+```
 gray-smart-ambulance/
 ├── api/
 │   ├── app.py                      # FastAPI server
@@ -284,7 +281,7 @@ gray-smart-ambulance/
 ├── requirements.txt               # Python dependencies
 ├── train.py                       # Training pipeline
 └── evaluate_test_patient.py       # Evaluation script
-
+```
 
 # 🏗️ System Architecture
 
