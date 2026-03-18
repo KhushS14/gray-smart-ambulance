@@ -564,6 +564,6 @@ uvicorn api.app:app --reload
 
 **Project Maintainer:** [Khush Suvarna]  
 **GitHub:** [@KhushS14](https://github.com/KhushS14)  
-**Assignment:** Gray Mobility AI/ML Engineer Internship
+
 
 ---
